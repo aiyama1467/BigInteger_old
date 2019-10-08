@@ -1,10 +1,11 @@
 CFLAGS = -Wall
 OBJ_OUTDIR = out/objectfile/
+TEST_OUTDIR = out/test/
 FILES = add.c sub.c mul.c div.c to_bint.c to_others.c shift.c power.c compare.c
 OBJECTS = $(addprefix $(OBJ_OUTDIR), $(FILES:.c=.o))
 
 out/static_libraly/bigInteger.a: $(OBJECTS)
-	ar r $@ $<
+	ar r $@ $(OBJECTS)
 
 # src/atirhmetic/ ---------------------------------------------------
 $(OBJ_OUTDIR)add.o: src/arithmetic/add.c
@@ -39,6 +40,14 @@ $(OBJ_OUTDIR)compare.o: src/other/compare.c
 	gcc -c -o $@ $<
 # -------------------------------------------------------------------
 
+# test --------------------------------------------------------------
+fermat: test/fermat.c out/static_libraly/bigInteger.a
+	gcc -o $(TEST_OUTDIR)$@.exe test/fermat.c out/static_libraly/bigInteger.a
+
+test: test/test.c out/static_libraly/bigInteger.a
+	gcc -o $(TEST_OUTDIR)$@.exe test/test.c out/static_libraly/bigInteger.a
+# -------------------------------------------------------------------
+
 .PHONY: clean
 clean:
-	rm -f $(OBJ_OUTDIR)*.o out/static_libraly/bigInteger.a
+	rm -f $(OBJ_OUTDIR)*.o out/static_libraly/bigInteger.a $(TEST_OUTDIR)*.exe

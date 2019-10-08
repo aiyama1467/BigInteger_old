@@ -1,4 +1,4 @@
-#include"bigInteger.h"
+#include"../src/bigInteger.h"
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -27,7 +27,7 @@ void main() {
     clock_t start, end;
 
     while(1){
-        printf("素数判定を行います(終了->0)："); scanf("%d", &n);
+        printf("素数判定を行います(終了->0)："); scanf("%ld", &n);
         if(n == 0) {
             break;
         } else if(n == 1) {
@@ -43,10 +43,10 @@ void main() {
         end = clock();
 
         if(ret) {
-            printf("%dは確率的素数です。\n", n);
+            printf("%ldは確率的素数です。\n", n);
             printf("time:%.10lf\n", (double)(end - start) / CLOCKS_PER_SEC);
         } else {
-            printf("%dは素数ではありません。\n", n);
+            printf("%ldは素数ではありません。\n", n);
         }
     }
 }
